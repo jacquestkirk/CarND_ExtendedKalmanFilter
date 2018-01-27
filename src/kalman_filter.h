@@ -63,6 +63,16 @@ public:
    * @param z The measurement at k+1
    */
   void UpdateEKF(const Eigen::VectorXd &z);
+  void UpdateF(double dt);
+  void UpdateQ(double dt, double noise_ax, double noise_ay);
+  void UpdateHj(void);
+
+private:
+
+	Eigen::VectorXd LidarMeasEstimation(Eigen::VectorXd &x);
+
+
+
 
 };
 
