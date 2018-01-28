@@ -184,7 +184,7 @@ int main()
 #endif
   
   {
-    std::cout << "Connecteddddd!!!" << std::endl;
+    std::cout << "Connected!!!" << std::endl;
   });
 
 #ifdef UWS_VCPKG

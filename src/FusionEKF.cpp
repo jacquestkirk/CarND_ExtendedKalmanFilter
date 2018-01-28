@@ -51,6 +51,7 @@ FusionEKF::~FusionEKF() {
 
 void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
+
   /*****************************************************************************
    *  Initialization
    ****************************************************************************/
@@ -110,10 +111,11 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
     // done initializing, no need to predict or update
     is_initialized_ = true;
-    cout << "initialized " << endl;
     return;
   }
-
+  /*if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
+	  return;
+  }*/
   /*****************************************************************************
    *  Prediction
    ****************************************************************************/
@@ -126,7 +128,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
    * Use noise_ax = 9 and noise_ay = 9 for your Q matrix.
    */
 
-  cout << "loop " << endl;
   //find time difference then update previous time stamp
   double current_time_s = (double) measurement_pack.timestamp_ / 1000000;
   double dt_s = current_time_s - previous_timestamp_;
@@ -141,11 +142,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
   ekf_.Predict();
 
-  // print the output
-    cout << "x_ = " << ekf_.x_ << endl;
-    cout << "P_ = " << ekf_.P_ << endl;
 
-  cout << "prediction complete " << endl;
   /*****************************************************************************
    *  Update
    ****************************************************************************/
@@ -168,7 +165,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     ekf_.R_ = R_laser_;
     ekf_.Update(measurement_pack.raw_measurements_);
   }
-  cout << "update complete " << endl;
 
   // print the output
   cout << "x_ = " << ekf_.x_ << endl;

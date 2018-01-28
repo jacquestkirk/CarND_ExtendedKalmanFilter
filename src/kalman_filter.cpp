@@ -58,8 +58,20 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   long x_size = x_.size();
   MatrixXd I = MatrixXd::Identity(x_size, x_size);
 
+	VectorXd h_x = LidarMeasEstimation(x_);
 
-	VectorXd y = z - LidarMeasEstimation(x_);
+	double dPhi = z(1) - h_x(1);
+
+	// deal with the case where prediction and measured value straddle the pi/-pi transition
+	if (dPhi > M_PI)
+	{
+		h_x(1) = h_x(1) + 2 * M_PI;
+	}
+	if (dPhi < -M_PI)
+	{
+		h_x(1) = h_x(1) - 2 * M_PI;
+	}
+	VectorXd y = z - h_x;
 	MatrixXd S = H_ * P_*H_.transpose() + R_;
 	MatrixXd K = P_ * H_.transpose() * S.inverse();
 
