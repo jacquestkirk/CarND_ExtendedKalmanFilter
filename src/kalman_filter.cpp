@@ -58,7 +58,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   long x_size = x_.size();
   MatrixXd I = MatrixXd::Identity(x_size, x_size);
 
-	VectorXd h_x = LidarMeasEstimation(x_);
+	VectorXd h_x = RadarMeasEstimation(x_);
 
 	double dPhi = z(1) - h_x(1);
 
@@ -80,7 +80,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 
 }
 
-VectorXd KalmanFilter::LidarMeasEstimation(VectorXd &x)
+VectorXd KalmanFilter::RadarMeasEstimation(VectorXd &x)
 {
 	VectorXd h = VectorXd(3);
 

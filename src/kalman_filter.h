@@ -69,7 +69,7 @@ public:
 
 private:
 
-	Eigen::VectorXd LidarMeasEstimation(Eigen::VectorXd &x);
+	Eigen::VectorXd RadarMeasEstimation(Eigen::VectorXd &x);
 
 
 
