@@ -1,6 +1,25 @@
 # Extended Kalman Filter Project Starter Code
 Self-Driving Car Engineer Nanodegree Program
 
+## Comments from Jason
+### Accuracy:
+Final RMSE is [0.097, 0.086, 0.45, 0.44]. this is below the target of [0.11,0.11,0.52,0.52]
+
+![alt text](./Results.jpg)
+
+### Algorithm:
+- The initialization procedure occurs in [FusionEKF.cpp](https://github.com/jacquestkirk/CarND_ExtendedKalmanFilter/blob/master/src/FusionEKF.cpp) lines 58 to 101.
+- Ptediction happens in [FusionEKF.cpp](https://github.com/jacquestkirk/CarND_ExtendedKalmanFilter/blob/master/src/FusionEKF.cpp) starting with line 132
+- Update happens in [FusionEKF.cpp](https://github.com/jacquestkirk/CarND_ExtendedKalmanFilter/blob/master/src/FusionEKF.cpp) starting with line 156
+- The matrix calculations occur in [kalman_filter.cpp](https://github.com/jacquestkirk/CarND_ExtendedKalmanFilter/blob/master/src/kalman_filter.cpp) in the UpdateF(), UpdateQ(), and updateHj() functions. 
+- RadarMeasEstimation in [kalman_filter.cpp](https://github.com/jacquestkirk/CarND_ExtendedKalmanFilter/blob/master/src/kalman_filter.cpp) is used to estimate the state from a radar measurement (i.e. h(x))
+
+### Extra:
+- With radar only RMSE is [0.24,0.34,0.54,0.72]
+- With lidar only RMSE is [0.18,0.15,0.66,0.49]
+- Lidar in general has better position accuraccy. Radar has better y-velocity accuracy. Both are worse than the combination of the two. Though I wonder how much of the combined accuracy improvement is due to the fact that lidar + radar has twice as much data as a single sensor.  
+
+## Original .md
 In this project you will utilize a kalman filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower that the tolerance outlined in the project rubric. 
 
 This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
